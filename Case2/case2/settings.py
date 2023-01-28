@@ -1,5 +1,6 @@
 from pathlib import Path
 import boto3
+import json
 
 boto3.setup_default_session(region_name='ap-northeast-1')
 
@@ -11,12 +12,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*g(2$mw6oz@vekvvp)$@%4lmb)#-200gih5#bi@f5=g(lyls)i'
+file = open('info.json', 'r')
+info = json.load(file)
+
+SECRET_KEY = info['Secret_Key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['taskenv.eba-dzcx4eh3.ap-northeast-1.elasticbeanstalk.com']
+ALLOWED_HOSTS = [info['ALLOWED_HOSTS']]
 
 
 # Application definition
